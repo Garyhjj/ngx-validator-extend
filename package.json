@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/Garyhjj/ngx-validator-extend/issues"
   },
-  "homepage": "https://github.com/Garyhjj/ngx-validator-extend#readme",
+  "homepage": "https://github.com/Garyhjj/ngx-validator-extend/blob/master/README.md",
   "devDependencies": {
     "@types/node": "8.0.54",
     "typescript": "2.6.2"
