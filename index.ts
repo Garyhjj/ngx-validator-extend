@@ -1,0 +1,1 @@
+export * from './app/ngx-validator-extend.service';

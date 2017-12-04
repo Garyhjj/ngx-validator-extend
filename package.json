@@ -1,0 +1,33 @@
+{
+  "name": "ngx-validator-extend",
+  "version": "0.0.1",
+  "description": "form,validator,angular",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Garyhjj/ngx-validator-extend.git"
+  },
+  "keywords": [
+    "form",
+    "validator",
+    "angular"
+  ],
+  "author": "Garyhjj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Garyhjj/ngx-validator-extend/issues"
+  },
+  "homepage": "https://github.com/Garyhjj/ngx-validator-extend#readme",
+  "devDependencies": {
+    "@types/node": "8.0.54",
+    "typescript": "2.6.2"
+  },
+  "dependencies": {
+    "@angular/core": "5.0.5",
+    "@angular/forms": "5.0.5",
+    "rxjs": "5.5.3"
+  }
+}
