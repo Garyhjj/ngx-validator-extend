@@ -11,20 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * angular验证器扩展服务
- * version: '0.01'
- * name: 'ngxValidatorExtend.ts'
- * author: 'Garyhjj'
+ * version: '0.03'
+ * name: 'ngValidatorExtend.js'
+ * author: 'gary.h'
  * 2017-08-1
  */
 var core_1 = require("@angular/core");
-var NgxValidatorExtendService = /** @class */ (function () {
-    function NgxValidatorExtendService() {
+var NgValidatorExtendService = (function () {
+    function NgValidatorExtendService() {
     }
     /**
      * 必须填
      * @return {ValidatorFn} [验证器]
      */
-    NgxValidatorExtendService.prototype.required = function () {
+    NgValidatorExtendService.prototype.required = function () {
         return function (ctrl) {
             var value = ctrl.value;
             return value ? null : {
@@ -37,9 +37,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number}   num 传入的长度要求
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.minLength = function (num) {
+    NgValidatorExtendService.prototype.minLength = function (num) {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             var valueL = value.length;
             return !value || (valueL >= num) ? null : {
                 'minlength': {
@@ -54,9 +56,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number}   num 传入的长度要求
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.maxLength = function (num) {
+    NgValidatorExtendService.prototype.maxLength = function (num) {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             var valueL = value.length;
             return !value || (valueL <= num) ? null : {
                 'maxlength': {
@@ -71,7 +75,7 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number}   num 传入的长度要求
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.max = function (num) {
+    NgValidatorExtendService.prototype.max = function (num) {
         return function (ctrl) {
             var value = Number(ctrl.value);
             return !value || (value <= num) ? null : {
@@ -87,7 +91,7 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number}   num 传入的长度要求
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.min = function (num) {
+    NgValidatorExtendService.prototype.min = function (num) {
         return function (ctrl) {
             var value = Number(ctrl.value);
             return !value || (value >= num) ? null : {
@@ -103,10 +107,12 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number[]} bet 长度为2的数组、例‘[2,6]’
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.betweenLength = function (bet) {
+    NgValidatorExtendService.prototype.betweenLength = function (bet) {
         if (bet instanceof Array && bet.length > 1) {
             return function (ctrl) {
                 var value = ctrl.value;
+                if (!value)
+                    return null;
                 var valueL = value.length;
                 return !value || (valueL >= bet[0] && valueL <= bet[1]) ? null : { 'betweenLength': {
                         'requiredLength': bet[0] + '-' + bet[1], 'actualLength': valueL
@@ -122,9 +128,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {any}    reg   正则表达式
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.regex = function (reg) {
+    NgValidatorExtendService.prototype.regex = function (reg) {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             var regx = new RegExp(reg);
             return !value || (value && regx.test(value)) ? null : {
                 'RegExp': regx.toString()
@@ -135,9 +143,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * 检测是否为邮箱
      * @return {ValidatorFn} 验证器
      */
-    NgxValidatorExtendService.prototype.email = function () {
+    NgValidatorExtendService.prototype.email = function () {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             return !value || /^([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]*)*\@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])*/.test(value) ? null : {
                 'email': true
             };
@@ -148,9 +158,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number}   length 字符长度
      * @return {ValidatorFn}        验证器
      */
-    NgxValidatorExtendService.prototype.length = function (length) {
+    NgValidatorExtendService.prototype.length = function (length) {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             var valueL = value.length;
             return !value || valueL === Number(length) ? null : {
                 'length': {
@@ -164,7 +176,7 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number[]} bet 大小范围
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.between = function (bet) {
+    NgValidatorExtendService.prototype.between = function (bet) {
         if (bet instanceof Array && bet.length > 1) {
             return function (ctrl) {
                 var value = Number(ctrl.value);
@@ -181,9 +193,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * 为整数
      * @return {ValidatorFn} 验证器
      */
-    NgxValidatorExtendService.prototype.integer = function () {
+    NgValidatorExtendService.prototype.integer = function () {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             return !value || /^\-?\d+$/.test(value) ? null : {
                 'integer': true
             };
@@ -193,9 +207,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * 为数字
      * @return {ValidatorFn} 验证器
      */
-    NgxValidatorExtendService.prototype.number = function () {
+    NgValidatorExtendService.prototype.number = function () {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             return !value || !isNaN(Number(value)) ? null : {
                 'number': true
             };
@@ -205,9 +221,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * 为移动号码
      * @return {ValidatorFn} 验证器
      */
-    NgxValidatorExtendService.prototype.mobile = function () {
+    NgValidatorExtendService.prototype.mobile = function () {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             return !value || /^1\d{10}$/.test(value) ? null : {
                 'mobile': true
             };
@@ -217,9 +235,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * 为固话号码
      * @return {ValidatorFn} 验证器
      */
-    NgxValidatorExtendService.prototype.telephone = function () {
+    NgValidatorExtendService.prototype.telephone = function () {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             return !value || /^\d{4}\-\d{8}$/.test(value) ? null : {
                 'telephone': true
             };
@@ -229,9 +249,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * 为网址
      * @return {ValidatorFn} 验证器
      */
-    NgxValidatorExtendService.prototype.url = function () {
+    NgValidatorExtendService.prototype.url = function () {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             return !value || /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g.test(value) ? null : {
                 'url': true
             };
@@ -242,7 +264,7 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {string}   name 同级栏位名称
      * @return {ValidatorFn}      验证器
      */
-    NgxValidatorExtendService.prototype.equalTo = function (name) {
+    NgValidatorExtendService.prototype.equalTo = function (name) {
         return function (ctrl) {
             var value = ctrl.value;
             if (!ctrl.parent)
@@ -262,9 +284,11 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {number} num   小数位的个数
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.toFix = function (num) {
+    NgValidatorExtendService.prototype.toFix = function (num) {
         return function (ctrl) {
             var value = ctrl.value;
+            if (!value)
+                return null;
             var reg = '^([\\d]+)(\\.[\\d]{' + Number(num) + '})?$';
             return new RegExp(reg).test(value) ? null : {
                 'toFix': true
@@ -277,17 +301,17 @@ var NgxValidatorExtendService = /** @class */ (function () {
      * @param  {any}      opt 自定义参数
      * @return {ValidatorFn}     验证器
      */
-    NgxValidatorExtendService.prototype.selfDefine = function (fn, opt) {
+    NgValidatorExtendService.prototype.selfDefine = function (fn, opt) {
         var _this = this;
         return function (ctrl) {
             return fn.call(_this, ctrl, opt);
         };
     };
-    NgxValidatorExtendService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [])
-    ], NgxValidatorExtendService);
-    return NgxValidatorExtendService;
+    return NgValidatorExtendService;
 }());
-exports.NgxValidatorExtendService = NgxValidatorExtendService;
+NgValidatorExtendService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], NgValidatorExtendService);
+exports.NgValidatorExtendService = NgValidatorExtendService;
 //# sourceMappingURL=ngx-validator-extend.service.js.map

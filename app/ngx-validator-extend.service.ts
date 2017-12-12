@@ -1,8 +1,8 @@
 /**
  * angular验证器扩展服务
- * version: '0.01'
- * name: 'ngxValidatorExtend.ts'
- * author: 'Garyhjj'
+ * version: '0.03'
+ * name: 'ngValidatorExtend.js'
+ * author: 'gary.h'
  * 2017-08-1
  */
 import { Injectable } from '@angular/core';
@@ -10,7 +10,7 @@ import { ValidatorFn } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 
 @Injectable()
-export class NgxValidatorExtendService {
+export class NgValidatorExtendService {
 
   constructor() { }
 
@@ -35,6 +35,7 @@ export class NgxValidatorExtendService {
   minLength(num: number): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       let valueL = value.length;
       return !value || (valueL >= num) ? null : {
         'minlength': {
@@ -53,6 +54,7 @@ export class NgxValidatorExtendService {
   maxLength(num: number): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       let valueL = value.length;
       return !value || (valueL <= num) ? null : {
         'maxlength': {
@@ -106,6 +108,7 @@ export class NgxValidatorExtendService {
     if (bet instanceof Array && bet.length > 1) {
       return (ctrl: AbstractControl) => {
         let value = ctrl.value;
+        if(!value) return null;
         let valueL = value.length;
         return !value || (valueL >= bet[0] && valueL <= bet[1]) ? null : { 'betweenLength' :{
           'requiredLength': bet[0] + '-' + bet[1], 'actualLength': valueL
@@ -124,6 +127,7 @@ export class NgxValidatorExtendService {
   regex(reg: any): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       let regx = new RegExp(reg);
       return !value || (value && regx.test(value)) ? null : {
         'RegExp': regx.toString()
@@ -138,6 +142,7 @@ export class NgxValidatorExtendService {
   email(): ValidatorFn{
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       return !value || /^([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]*)*\@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])*/.test(value) ? null : {
         'email': true
       }
@@ -152,6 +157,7 @@ export class NgxValidatorExtendService {
   length(length:number): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       let valueL = value.length;
       return !value || valueL === Number(length) ? null : {
         'length': {
@@ -186,6 +192,7 @@ export class NgxValidatorExtendService {
   integer(): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       return !value || /^\-?\d+$/.test(value) ? null : {
         'integer': true
       }
@@ -199,6 +206,7 @@ export class NgxValidatorExtendService {
   number(): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       return !value || !isNaN(Number(value)) ? null : {
         'number': true
       }
@@ -212,6 +220,7 @@ export class NgxValidatorExtendService {
   mobile(): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       return !value || /^1\d{10}$/.test(value) ? null : {
         'mobile': true
       }
@@ -225,6 +234,7 @@ export class NgxValidatorExtendService {
   telephone(): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       return !value || /^\d{4}\-\d{8}$/.test(value) ? null : {
         'telephone': true
       }
@@ -238,6 +248,7 @@ export class NgxValidatorExtendService {
   url(): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       return !value || /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g.test(value) ? null : {
         'url': true
       }
@@ -271,6 +282,7 @@ export class NgxValidatorExtendService {
   toFix(num:number): ValidatorFn {
     return (ctrl: AbstractControl) => {
       let value = ctrl.value;
+      if(!value) return null;
       let reg = '^([\\d]+)(\\.[\\d]{'+Number(num)+'})?$';
       return new RegExp(reg).test(value) ? null : {
         'toFix': true
