@@ -10,7 +10,7 @@ import { ValidatorFn } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 
 @Injectable()
-export class NgValidatorExtendService {
+export class NgxValidatorExtendService {
 
   constructor() { }
 

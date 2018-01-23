@@ -13,7 +13,7 @@ npm i ngx-validator-extend --save
 ```
 ...
  constructor(
-    private validExd: NgValidatorExtendService,
+    private validExd: NgxValidatorExtendService,
   ) { }
   ...
 let sub = this.fb.group({
